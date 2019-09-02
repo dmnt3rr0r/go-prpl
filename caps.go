@@ -30,7 +30,6 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-
 type CapSince struct {
 	ES2015 []int `yaml:"es2015"`
 	ES2016 []int `yaml:"es2016"`
@@ -56,21 +55,19 @@ type Caps struct {
 	BrowserType string
 }
 
-var bCapMap map[string]*BCaps 
-
-func uaCaps(browser *bgo.Browser, bmap *map[string]*BCaps) (*Caps, error) {
-
+func UACaps(browser *bgo.Browser, bmap *map[string]*BCaps) (*Caps, error) {
+	// TODO
 	return nil, nil
 }
 
 
-	func initCapMap(browserCapIni string) (*map[string]*BCaps, error) {
+func initCapMap(browserCapIni, configFile string) (*map[string]*BCaps, error) {
 	if err := bgo.InitBrowsCap(browserCapIni, false); err != nil {
 		return nil, err
 	}
 	
 	// now we'll parse the config
-	dat, err := ioutil.ReadFile("capmap.yaml")
+	dat, err := ioutil.ReadFile(configFile)
 	if (err != nil) {
 		return nil, err
 	}
@@ -81,7 +78,7 @@ func uaCaps(browser *bgo.Browser, bmap *map[string]*BCaps) (*Caps, error) {
 		return nil, err
 	}
 
-	bCapMap = make(map[string]*BCaps)
+	bCapMap := make(map[string]*BCaps)
 
 	
 	for _, c := range capMap {
@@ -139,7 +136,7 @@ func normalizeCapSince(capSince *CapSince, defaultVal int) (*CapSince) {
 
 func normalizeCap(cap []int, defaultVal int) ([]int) {
 	if cap == nil || len(cap) == 0 {
-		cap = []int{ defaultVal, defaultVal }
+		cap = []int{ defaultVal, 0 }
 	} else {
 		if len(cap) == 1 {
 			cap = []int { cap[0], 0 }

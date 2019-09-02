@@ -4,25 +4,77 @@ import (
 	"testing"
 )
 
-func cmpArrays(a b []int) bool {
+func cmpArrays(a, b []int) bool {
 	if len(a) != len(b) {
+		return false
 	}
 
-	//TODO range over vals
+	for i, _ := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+
+	return true
+}
+
+func testArrays(t *testing.T, result, expected []int) {
+	if !cmpArrays(result, expected) {
+		t.Errorf("result did not equal expected; want %v, got %v", expected, result)
+	}
 }
 
 func TestNormalizeCap(t *testing.T) {
-
 	result := normalizeCap(nil, MaxInt)
 	expected := []int{ MaxInt, 0 }
-
-	if len(result) != len(expected) {
-		t.Errorf("len(defaultResult) != len(expected); want %d, got %d", len(expected), len(result))
-	}
+	testArrays(t, result, expected)
 
 	result = normalizeCap([]int{ 42 }, MaxInt)
 	expected = []int{ 42, 0 }
+	testArrays(t, result, expected)
 
-	
-	
+	result = normalizeCap([]int{ 6, 3 }, MaxInt)
+	expected = []int{ 6, 3 }
+	testArrays(t, result, expected) 
+}
+
+
+func TestNormalizeCapSince(t *testing.T) {
+
+	value := CapSince{
+		[]int{ 10 },
+		[]int{ 10, 3 },
+		[]int{ 10, 3 },
+		nil,
+		[]int{ 9, 2 },
+		[]int{ 11, 3 },
+		[]int{ 11, 3 }}
+	result := normalizeCapSince(&value, MaxInt)
+	expected := CapSince{
+		[]int{ 10, 0 },
+		[]int{ 10, 3 },
+		[]int{ 10, 3 },
+		[]int{ MaxInt, 0 },
+		[]int{ 9, 2 },
+		[]int{ 11, 3 },
+		[]int{ 11, 3 }}
+
+	testArrays(t, result.ES2015, expected.ES2015)
+	testArrays(t, result.ES2016, expected.ES2016)
+	testArrays(t, result.ES2017, expected.ES2017)
+	testArrays(t, result.ES2018, expected.ES2018)
+	testArrays(t, result.Push, expected.Push)
+	testArrays(t, result.ServiceWorker, expected.ServiceWorker)
+	testArrays(t, result.Modules, expected.Modules)
+}
+
+func TestUACaps(t *testing.T) {
+
+	capMap := initCapMap("browscap.ini", "capmap.yaml")
+
+	browserUA := `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246
+Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36`
+
+
+
 }
