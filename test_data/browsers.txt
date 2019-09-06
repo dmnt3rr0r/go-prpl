@@ -1,0 +1,50 @@
+Webkit based browser
+Chrome 74
+Chrome 72
+Webkit based browser
+Chrome 74
+Internet Explorer 6
+Internet Explorer 6
+Chrome 60
+Safari 12.1
+Edge 42
+Internet Explorer 11
+Firefox 7
+Internet Explorer 6
+Firefox 54
+Firefox 40.1
+Edge 44
+Chrome 60
+Internet Explorer 7
+Webkit based browser
+Chrome 72
+Chrome 44
+Webkit based browser
+Firefox 18
+Internet Explorer 6
+Chrome 74
+Internet Explorer 9
+Webkit based browser
+Internet Explorer 6
+Firefox 38
+Webkit based browser
+Internet Explorer 6
+Android Browser 4
+Chrome 46
+Internet Explorer 11
+Webkit based browser
+Chrome 69
+Chrome 63
+Internet Explorer 9
+Edge 38
+Chrome 21
+Internet Explorer 11
+Chrome 60
+Chrome 60
+Webkit based browser
+Webkit based browser
+Internet Explorer 6
+Chrome 60
+Edge 40
+Firefox 36
+Webkit based browser

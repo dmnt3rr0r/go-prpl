@@ -70,11 +70,20 @@ func TestNormalizeCapSince(t *testing.T) {
 
 func TestUACaps(t *testing.T) {
 
-	capMap := initCapMap("browscap.ini", "capmap.yaml")
+	capMap, err := initCapMap("browscap.ini", "capmap.yaml")
+	if err != nil {
+		t.Errorf("Initilization failed")
+	}
 
-	browserUA := `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246
-Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36`
+	browserUA := `Mozilla/5.0 (X11; CrOS x86_64 8172.45.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.64 Safari/537.36`
 
+	testCaps, err := UACaps(browserUA, capMap)
+	if (err != nil) || (testCaps == nil) {
+		t.Errorf("General error: %v", err)
+	}
 
+	if !testCaps.ES2015 || !testCaps.ES2016 || !testCaps.ES2017 || !testCaps.ES2018 || !testCaps.Push || !testCaps.ServiceWorker || !testCaps.Modules {
+		t.Errorf("Did not detect the correct features")
+	}
 
 }

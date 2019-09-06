@@ -55,9 +55,18 @@ type Caps struct {
 	BrowserType string
 }
 
-func UACaps(browser *bgo.Browser, bmap *map[string]*BCaps) (*Caps, error) {
-	// TODO
-	return nil, nil
+const NoCaps = Caps{ false, false, false, false, false, false, false, "No Capabilities" }
+
+func UACaps(userAgent string, bmap *map[string]*BCaps) (*Caps, error) {
+	browser, ok := bgo.GetBrowser(userAgent)
+	if !ok {
+		return NoCaps, fmt.Errorf("Failed to find browser")
+	}
+
+	
+
+	
+	return nil , nil
 }
 
 
